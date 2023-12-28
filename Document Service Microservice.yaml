@@ -1,0 +1,309 @@
+openapi: 3.0.1
+info:
+  title: Documents
+  description: APIs for Documents
+  version: 1.0.0
+paths:
+  /documents:
+    post:
+      tags:
+        - Documents
+      summary:  Create a New Document
+      description: Create a New Document
+      operationId: createDocument
+      requestBody:
+          $ref: '#/components/requestBodies/createDocumentRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/createDocumentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /documents/{documentId}:
+    get:
+      tags:
+        - Documents
+      summary:  Fetch an document
+      description: Fetch an document
+      operationId: fetchDocument
+      parameters:
+        - $ref: '#/components/parameters/documentId'
+      responses:
+        '200':
+          $ref: '#/components/responses/fetchDocumentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    patch:
+      tags:
+        - Documents
+      summary:  Update a document
+      description: Update a document
+      operationId: updateDocument
+      parameters:
+        - $ref: '#/components/parameters/documentId'
+      requestBody:
+          $ref: '#/components/requestBodies/updateDocumentRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/updateDocumentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    delete:
+      tags:
+        - Documents
+      summary:  Delete an document
+      description: delete an document
+      operationId: deleteDocument
+      parameters:
+        - $ref: '#/components/parameters/documentId'
+      responses:
+        '200':
+          description: Document deleted successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  schemas:
+    createDocumentRequest:
+      type: object
+      properties:
+        documentStatus: 
+          type: string
+          format: string
+        documentType:
+          type: string
+          format: string
+        documentName:
+          type: integer
+          format: number
+        documentProvider: 
+          type: string
+          format: string
+        expiryDateTime:
+          type: string
+          format: date
+        documentVersionDate:
+          type: string
+          format: date
+        nextCheckDateTime:
+          type: string
+          format: date
+        corporateId:
+          type: string
+          format: string
+        individualId:
+          type: string
+          format: string
+        documentUrl:
+          type: string
+          format: string
+    createDocumentResponse:
+      type: object
+      properties:
+        documentId:
+          type: integer
+          format: numer
+    updateDocumentResponse:
+      type: object
+      properties:
+        documentId:
+          type: integer
+          format: numer
+    
+    updateDocumentRequest:
+      type: object
+      properties:
+        documentStatus: 
+          type: string
+          format: string
+        documentType:
+          type: string
+          format: string
+        documentName:
+          type: integer
+          format: number
+        documentProvider: 
+          type: string
+          format: string
+        expiryDateTime:
+          type: string
+          format: date
+        documentVersionDate:
+          type: string
+          format: date
+        nextCheckDateTime:
+          type: string
+          format: date
+        corporateId:
+          type: string
+          format: string
+        individualId:
+          type: string
+          format: string
+        documentUrl:
+          type: string
+          format: string
+    fetchDocumentResponse:
+      type: object
+      properties:
+        documentStatus: 
+          type: string
+          format: string
+        documentType:
+          type: string
+          format: string
+        documentName:
+          type: integer
+          format: number
+        documentProvider: 
+          type: string
+          format: string
+        expiryDateTime:
+          type: string
+          format: date
+        documentVersionDate:
+          type: string
+          format: date
+        nextCheckDateTime:
+          type: string
+          format: date
+        corporateId:
+          type: string
+          format: string
+        individualId:
+          type: string
+          format: string
+        documentUrl:
+          type: string
+          format: string
+    HTTPError:
+      type: object
+      properties:
+        status_code:
+          type: string
+          format: string
+        status:
+          type: string
+          format: string
+        message:
+          type: string
+          format: string
+    
+  parameters:
+    documentId:
+      name: documentId
+      in: path
+      required: true
+      schema:
+        type: string
+  requestBodies:
+    createDocumentRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/createDocumentRequest'
+    updateDocumentRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/updateDocumentRequest'
+  responses:
+    updateDocumentResponse:
+        description: delete document
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateDocumentResponse' 
+    fetchDocumentResponse:
+        description: fetchDocument
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/fetchDocumentResponse' 
+    createDocumentResponse:
+        description: Document created
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/createDocumentResponse' 
+    BadRequest:
+      description: BadRequest
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    NotFound:
+      description: NotFound
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    TooManyRequests:
+      description: TooManyRequests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
+    InternalServerError:
+      description: InternalServerError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HTTPError'
